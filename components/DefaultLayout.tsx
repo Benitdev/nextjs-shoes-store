@@ -67,7 +67,7 @@ const DefaultLayout: React.FC<Props> = ({ title, children }) => {
             <main className="container z-10 min-h-screen">{children}</main> */}
 
             <footer className="z-10 w-full border-t bg-slate-900/20 p-4 py-8 pb-0 text-slate-200">
-                <div className="container grid grid-cols-10 px-4">
+                <div className="container mx-auto grid grid-cols-10 px-4">
                     <div className="col-span-2">
                         <h1 className="font-bold"> FIND A STORE </h1>
                         <div className="mt-6 space-y-2 text-sm font-bold">
