@@ -61,7 +61,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
             purchase_units: [
                 {
                     amount: {
-                        value: `${Math.floor(total + 69696 / 23000)}`,
+                        value: `${Math.floor((total + 69696) / 23000)}`,
                     },
                 },
             ],
@@ -98,6 +98,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
             })
             dispatch(onApproveOrder(''))
             dispatch(setIsLoading(false))
+            Cookies.set('coupon', '')
             toast.success('Đặt hàng thành công!')
             setCheckoutStage((pre: any) => pre + 1)
         } catch (e) {

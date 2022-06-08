@@ -85,7 +85,15 @@ const FilterBar = ({ category: cate }: any) => {
                                     id="gender1"
                                     name="gender"
                                     className="peer h-4 w-4 cursor-pointer appearance-none rounded-sm bg-slate-200"
-                                    checked={query.gender === 'men'}
+                                    disabled={
+                                        query.category == 'men' ||
+                                        query.category == ' women' ||
+                                        query.category == 'kid'
+                                    }
+                                    checked={
+                                        query.gender === 'men' ||
+                                        query.category == 'men'
+                                    }
                                     onChange={() =>
                                         router.replace(
                                             `/${cate}?${queryString.stringify(
@@ -122,7 +130,15 @@ const FilterBar = ({ category: cate }: any) => {
                                     id="gender2"
                                     name="gender"
                                     className="peer h-4 w-4 cursor-pointer appearance-none rounded-sm bg-slate-200"
-                                    checked={query.gender === 'women'}
+                                    checked={
+                                        query.gender === 'women' ||
+                                        query.category == 'women'
+                                    }
+                                    disabled={
+                                        query.category == 'men' ||
+                                        query.category == ' women' ||
+                                        query.category == 'kid'
+                                    }
                                     onChange={() =>
                                         router.replace(
                                             `/${cate}?${queryString.stringify(
@@ -159,7 +175,15 @@ const FilterBar = ({ category: cate }: any) => {
                                     name="gender"
                                     id="gender3"
                                     className="peer h-4 w-4 cursor-pointer appearance-none rounded-sm bg-slate-200"
-                                    checked={query.gender === 'kid'}
+                                    checked={
+                                        query.gender === 'kid' ||
+                                        query.category == 'kid'
+                                    }
+                                    disabled={
+                                        query.category == 'men' ||
+                                        query.category == ' women' ||
+                                        query.category == 'kid'
+                                    }
                                     onChange={() =>
                                         router.replace(
                                             `/${cate}?${queryString.stringify(

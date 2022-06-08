@@ -10,7 +10,7 @@ const HomeCollection: React.FC = () => {
                 WHO ARE YOU SHOPPING FOR?{' '}
             </p>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                <Link href={'products/men'}>
+                <Link href={'men'}>
                     <div className="group relative h-[400px] cursor-pointer xl:h-[500px]">
                         <Image
                             src={'/images/collection/men.webp'}
@@ -24,7 +24,7 @@ const HomeCollection: React.FC = () => {
                         </span>
                     </div>
                 </Link>
-                <Link href={'products/women'}>
+                <Link href={'women'}>
                     <div className="group relative h-[400px] cursor-pointer xl:h-[500px]">
                         <Image
                             src={'/images/collection/women.webp'}
@@ -38,7 +38,7 @@ const HomeCollection: React.FC = () => {
                         </span>
                     </div>
                 </Link>
-                <Link href={'products/kid'}>
+                <Link href={'kid'}>
                     <div className="group relative h-[400px] cursor-pointer xl:h-[500px]">
                         <Image
                             src={'/images/collection/kid.webp'}

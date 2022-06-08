@@ -12,6 +12,11 @@
     }
 }
 
+@layer utilities {
+    .shadow-nav {
+        box-shadow: 0px 10px 10px black;
+    }
+}
 .thumbSwiper .swiper-slide {
     opacity: 0.4;
 }

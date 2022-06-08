@@ -135,7 +135,7 @@ const DefaultLayout: React.FC<Props> = ({ title, children }) => {
                         </div>
                     </div>
                 </div>
-                <div className="text-bold container py-2 text-center text-sm text-slate-400">
+                <div className="text-bold container mx-auto py-2 text-center text-sm text-slate-400">
                     © 2022 Nike, Inc. All Rights Reserved
                 </div>
             </footer>
