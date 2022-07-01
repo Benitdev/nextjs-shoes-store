@@ -11,8 +11,8 @@ const options = {
 let client
 let clientPromise: any
 
-if (uri) {
-    throw new Error('sdasd: ' + uri)
+if (!uri) {
+    throw new Error('Please add Mongo URI to .env')
 }
 
 if (process.env.NODE_ENV === 'development') {
