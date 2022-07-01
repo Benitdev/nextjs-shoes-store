@@ -12,7 +12,7 @@ let client
 let clientPromise: any
 
 if (uri) {
-    throw new Error('sdasd: ', uri)
+    throw new Error('sdasd: ' + uri)
 }
 
 if (process.env.NODE_ENV === 'development') {
