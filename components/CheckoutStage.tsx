@@ -25,11 +25,11 @@ const CheckoutStage = ({ session }: any) => {
     console.log(cartItems)
     if (cartItems.length === 0)
         return (
-            <div className="text-sl mt-10 text-center font-bold uppercase text-pink-400">
+            <div className="text-sl mt-10 text-center font-bold uppercase text-shop-orange">
                 {' '}
                 Giỏ hàng của bạn trống!!!
                 <Link href={'/cart'}>
-                    <a className="mx-auto mt-10 block w-40 rounded-xl bg-pink-700 px-10 py-5 font-bold text-slate-900 hover:text-slate-600">
+                    <a className="mx-auto mt-10 block w-40 rounded-xl bg-shop-orange px-10 py-5 font-bold text-slate-900 hover:text-slate-600">
                         {' '}
                         Quay lại{' '}
                     </a>
@@ -46,7 +46,7 @@ const CheckoutStage = ({ session }: any) => {
                                 key={index}
                                 className={`pointer-events-none relative h-6 w-6 rounded-full ${
                                     checkoutStage >= index
-                                        ? 'bg-pink-700'
+                                        ? 'bg-shop-orange'
                                         : 'bg-slate-300/80'
                                 }`}
                             >
@@ -54,7 +54,7 @@ const CheckoutStage = ({ session }: any) => {
                                 <span
                                     className={`absolute top-[130%] left-1/2 w-max -translate-x-1/2 text-sm font-bold capitalize ${
                                         checkoutStage >= index
-                                            ? 'text-pink-600'
+                                            ? 'text-shop-orange'
                                             : 'text-slate-200'
                                     }`}
                                 >
@@ -67,7 +67,7 @@ const CheckoutStage = ({ session }: any) => {
                                     className="block h-2 flex-1 bg-slate-300"
                                 >
                                     <span
-                                        className={`block h-full bg-pink-600 transition-all duration-300 ${
+                                        className={`block h-full bg-shop-orange transition-all duration-300 ${
                                             checkoutStage > index
                                                 ? 'w-full'
                                                 : ' w-0'

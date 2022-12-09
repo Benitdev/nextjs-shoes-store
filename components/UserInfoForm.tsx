@@ -130,7 +130,7 @@ const UserInfoForm = () => {
                         ></select>
                     </div>
                 </div>
-                <button className="mx-auto !mt-14 block rounded-xl bg-sky-500 px-6 py-2 font-bold">
+                <button className="button-effect mx-auto !mt-14 block rounded-xl bg-shop-orange px-6 py-2 font-bold">
                     {' '}
                     Lưu Thay Đổi{' '}
                 </button>

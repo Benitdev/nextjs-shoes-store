@@ -11,6 +11,8 @@ import useDebounce from '../hooks/useDebounce'
 import axios from 'axios'
 import SearchItem from './SearchItem'
 import { useRouter } from 'next/router'
+import LoadingIcon from './common/LoadingIcon'
+import productApi from '../api/productApi'
 
 const SearchBox: React.FC = () => {
     const [result, setResult] = useState<any>([])
@@ -25,15 +27,13 @@ const SearchBox: React.FC = () => {
             return
         }
         const fetchProducts = async () => {
-            console.log('c')
             setLoading(true)
-            const { data } = await axios.get('/api/products', {
+            const data: any = await productApi.getProductsFilter({
                 params: {
-                    category: 'products',
                     search: searchText,
                 },
             })
-            setResult(data)
+            setResult(data.products)
             setLoading(false)
         }
         fetchProducts()
@@ -59,15 +59,15 @@ const SearchBox: React.FC = () => {
                 )}
                 onClickOutside={() => setVisible(false)}
             >
-                <div className="relative flex items-center rounded-xl bg-slate-400/30 px-3 py-1 ring-sky-500 focus-within:ring-2">
+                <div className="relative flex items-center rounded-xl bg-slate-400/30 px-3 py-1 ring-shop-orange focus-within:ring-2">
                     <FontAwesomeIcon
                         icon={faMagnifyingGlass}
-                        className="h-6 w-6"
+                        className="h-6 w-6 text-shop-orange/70"
                     ></FontAwesomeIcon>
                     <input
                         type="text"
                         placeholder="Tìm kiếm"
-                        className="group bg-transparent px-3 py-1 text-slate-200 outline-none"
+                        className="group bg-transparent px-3 py-1 text-shop-orange outline-none"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         onFocus={() => setVisible(true)}
@@ -78,15 +78,20 @@ const SearchBox: React.FC = () => {
                             }
                         }}
                     />
-                    {searchText && (
+                    {searchText && !loading && (
                         <FontAwesomeIcon
                             icon={faCircleXmark}
-                            className="h-4 w-4 text-gray-400"
+                            className="absolute right-3 h-4 w-4 cursor-pointer text-shop-orange"
                             onClick={() => {
                                 setSearchText('')
                                 setResult([])
                             }}
                         ></FontAwesomeIcon>
+                    )}
+                    {loading && (
+                        <div className="absolute right-3 h-4 w-4 cursor-pointer text-shop-orange">
+                            <LoadingIcon />
+                        </div>
                     )}
                 </div>
             </Tippy>

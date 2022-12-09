@@ -51,7 +51,7 @@ const ProductReviews: React.FC<Props> = ({ product }) => {
                 đánh giá sản phẩm
             </h1>
             <div className="flex h-[150px] items-center rounded-xl bg-red-300/20 p-6">
-                <div className="font-bold text-pink-700">
+                <div className="font-bold text-shop-orange">
                     <p className="text-center text-2xl">{numStar} Trên 5 </p>
                     <div className="flex items-center">
                         {startInput.map((input) => (
@@ -87,14 +87,16 @@ const ProductReviews: React.FC<Props> = ({ product }) => {
                     {btnCate.map((btn, index) => (
                         <button
                             key={index}
-                            className={`h-8 border-[1px] px-3 text-sm font-bold capitalize text-slate-200 ${
-                                index === btnCategory ? 'bg-pink-700' : ''
-                            } transition duration-150 hover:bg-pink-700`}
+                            className={`h-8 border-[1px] border-shop-orange/50 px-3 text-sm font-bold capitalize text-slate-200 ${
+                                index === btnCategory
+                                    ? 'bg-shop-orange/80 text-slate-900'
+                                    : ''
+                            } transition duration-150 hover:bg-shop-orange/80 hover:text-slate-900`}
                             onClick={() => setBtnCategory(index)}
                         >
                             {' '}
                             {btn}
-                            <span className="text-slate-400"> (0)</span>
+                            <span className="   "> (0)</span>
                         </button>
                     ))}
                 </div>

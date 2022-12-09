@@ -1,10 +1,11 @@
-import { Product } from './../utils/typings.d'
+import { Product } from '../utils/typings'
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import { ToastContainer, toast } from 'react-toastify'
+import cartApi from '../api/cartApi'
 
 // declaring the types for our state
 export type Cart = {
@@ -79,7 +80,6 @@ export const cartSlice = createSlice({
                             item.size === action.payload.size
                     )
                     item!.quantity = action.payload.quantity
-                    console.log('ok')
                     Cookies.set('cartItems', JSON.stringify(state.products))
                 } else toast.error('Số lượng trong kho không đủ!!!')
             })
@@ -110,23 +110,31 @@ export const cartSlice = createSlice({
 export const changeQuantity = createAsyncThunk(
     'cartSlice/changeQuantity',
     async ({ _id, size, quantity }: any) => {
-        const res = await axios.post('/api/cart', {
-            _id,
-            size,
-            quantity,
-        })
-        return { message: res.data.message, size, quantity, _id }
+        try {
+            const res: any = await cartApi.checkQuantity({
+                _id,
+                size,
+                quantity,
+            })
+            return { message: res.message, size, quantity, _id }
+        } catch (err) {
+            return {}
+        }
     }
 )
 export const changeSize = createAsyncThunk(
     'cartSlice/changeSize',
     async ({ _id, size, quantity }: any) => {
-        const res = await axios.post('/api/cart', {
-            _id,
-            size,
-            quantity,
-        })
-        return { message: res.data.message, size, quantity, _id }
+        try {
+            const res: any = await cartApi.checkQuantity({
+                _id,
+                size,
+                quantity,
+            })
+            return { message: res.message, size, quantity, _id }
+        } catch (err) {
+            return {}
+        }
     }
 )
 export const { cartAddItem, deleteCartItem, checkedItem, onApproveOrder } =

@@ -29,10 +29,10 @@ const UserOrder = () => {
                     {orderStates.map((state, index) => (
                         <button
                             key={index}
-                            className={`flex-1 px-4 py-2 font-bold capitalize text-slate-400 transition duration-300 hover:bg-pink-600 hover:text-slate-700 ${
+                            className={`flex-1 px-4 py-2 font-bold capitalize  transition duration-300 hover:bg-shop-orange  hover:text-slate-900 ${
                                 orderState === index
-                                    ? 'bg-pink-600 text-slate-700'
-                                    : ''
+                                    ? 'bg-shop-orange  text-slate-900'
+                                    : 'text-slate-400'
                             }`}
                             onClick={() => setOrderState(index)}
                         >

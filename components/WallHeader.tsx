@@ -10,16 +10,21 @@ import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
 type Props = {
     category: string
     productPage?: boolean
+    setHideFilter?: any
 }
-const WallHeader: React.FC<Props> = ({ category, productPage }) => {
+const WallHeader: React.FC<Props> = ({
+    category,
+    productPage,
+    setHideFilter,
+}) => {
     const router = useRouter()
     const { cate, gender, size } = router.query
     const isScroll = useAppSelector((state) => state.headerState.isScroll)
     const headerBlur = useAppSelector((state) => state.headerState.headerBlur)
     return (
         <div
-            className={`sticky z-20 px-6 text-slate-200 ${
-                isScroll ? '!top-[80px]' : '!top-[140px]'
+            className={`sticky z-20 px-6 text-slate-100 ${
+                isScroll ? '!top-[96px]' : '!top-[156px]'
             } ${headerBlur ? 'bg-black/90 backdrop-blur' : ''}`}
         >
             <div className="flex h-14 items-center justify-between">
@@ -32,25 +37,25 @@ const WallHeader: React.FC<Props> = ({ category, productPage }) => {
                             icon={faAnglesRight}
                             className="h-4 w-4"
                         />
-                        <a className="text-sky-300 underline underline-offset-2">
+                        <a className="text-shop-orange underline underline-offset-2">
                             {category}
                         </a>
                     </div>
                     <div className="flex items-center gap-4">
                         {cate && (
-                            <span className="rounded-xl bg-cyan-600 px-5 py-1 font-bold capitalize tracking-wider text-slate-200">
+                            <span className="rounded-xl bg-shop-orange px-5 py-1 font-bold capitalize tracking-wider text-slate-900">
                                 {' '}
                                 {cate}
                             </span>
                         )}
                         {gender && (
-                            <span className="rounded-xl bg-cyan-600 px-5 py-1 font-bold capitalize tracking-wider text-slate-200">
+                            <span className="rounded-xl bg-shop-orange  px-5 py-1 font-bold capitalize tracking-wider text-slate-900">
                                 {' '}
                                 {gender}
                             </span>
                         )}
                         {size && (
-                            <span className="rounded-xl bg-cyan-600 px-5 py-1 font-bold capitalize tracking-wider text-slate-200">
+                            <span className="rounded-xl bg-shop-orange  px-5 py-1 font-bold capitalize tracking-wider text-slate-900">
                                 {' '}
                                 size:
                                 {`${size}`.replace('+', ' ')}
@@ -59,9 +64,12 @@ const WallHeader: React.FC<Props> = ({ category, productPage }) => {
                     </div>
                 </div>
                 {productPage && (
-                    <div>
-                        <p> Hide Filter</p>
-                    </div>
+                    <button
+                        onClick={() => setHideFilter((value: any) => !value)}
+                        className="rounded-xl bg-shop-orange  px-5 py-1 font-bold capitalize tracking-wider text-slate-900"
+                    >
+                        <p> Hide Filter </p>
+                    </button>
                 )}
             </div>
         </div>

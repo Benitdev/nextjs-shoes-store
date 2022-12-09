@@ -14,17 +14,18 @@ import {
 const CartItems = () => {
     const dispatch = useAppDispatch()
     const cartItems = useAppSelector((state) => state.cart)
+    console.log(cartItems)
     return (
         <div className="flex-1">
-            <h1 className="border-b-2 border-slate-300 indent-2 text-2xl font-bold capitalize tracking-widest text-slate-100">
+            <h1 className="border-b-2 border-shop-orange indent-2 text-2xl font-bold capitalize tracking-widest text-shop-orange">
                 {' '}
                 giỏ hàng{' '}
             </h1>
-            <div className="mt-6 space-y-6 px-4">
+            <div className="mt-6 space-y-6 px-4 ">
                 {cartItems.products.map((item, index) => (
                     <div
                         key={index}
-                        className="relative grid grid-cols-6 gap-4 border-b-[1px] border-slate-200/40 pb-3 text-slate-200"
+                        className="relative grid grid-cols-6 gap-4 border-b border-shop-orange/40 pb-3 text-shop-orange"
                     >
                         <input
                             type="checkbox"
@@ -48,12 +49,19 @@ const CartItems = () => {
                             />
                         </div>
                         <div className="col-span-2 space-y-2">
-                            <h4 className="text-xl font-bold">{item.name}</h4>
+                            <h4 className="bg-gradient-to-tr from-shop-orange via-orange-300 to-orange-600 bg-clip-text text-xl font-bold text-transparent">
+                                {item.name}
+                            </h4>
                             <div>
-                                <label htmlFor="size">Size: </label>
+                                <label
+                                    htmlFor="size"
+                                    className="text-shop-orange"
+                                >
+                                    Size:{' '}
+                                </label>
                                 <select
                                     name="size"
-                                    className="ml-2 rounded-lg bg-slate-400/50 py-1 px-2 focus:ring-blue-500"
+                                    className="ml-2 rounded-lg bg-shop-orange/20 py-1 px-2 text-shop-orange focus:ring-shop-orange"
                                     value={item.size}
                                     onChange={(e) => {
                                         dispatch(
@@ -80,7 +88,7 @@ const CartItems = () => {
                                     )}
                                 </select>
                             </div>
-                            <p>
+                            <p className="font-bold">
                                 {item.price.toLocaleString('vi-VN', {
                                     style: 'currency',
                                     currency: 'VND',
@@ -117,7 +125,7 @@ const CartItems = () => {
                                 {' '}
                                 Thành Tiền{' '}
                             </h4>
-                            <p className="font-sans text-xl font-bold text-pink-500">
+                            <p className="font-sans text-2xl font-bold ">
                                 {(item.price * item.quantity).toLocaleString(
                                     'vi-VN',
                                     {

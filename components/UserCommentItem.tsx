@@ -40,8 +40,8 @@ const UserCommentItem = ({ review }: any) => {
                                                     : 'left-1'
                                             } ${
                                                 input <= review.rating * 2
-                                                    ? ''
-                                                    : 'text-slate-900'
+                                                    ? 'text-shop-orange'
+                                                    : 'text-slate-500'
                                             } 
                                     pointer-events-none`}
                                         />

@@ -1,12 +1,26 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto&display=swap');
 
 @layer base {
+    html *::-webkit-scrollbar {
+        border-radius: 0px;
+        width: 10px;
+    }
+
+    html *::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgb(236, 231, 231);
+    }
+
+    html *::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.55);
+    }
+
     body {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Nunito', sans-serif;
         overflow-x: hidden;
         @apply antialiased;
     }
@@ -30,4 +44,116 @@
 }
 .Toastify__toast-body {
     user-select: none;
+}
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@100;200;300;400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,300;0,400;1,300;1,400&family=Rubik+Distressed&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        overflow: overlay;
+    }
+    body {
+        @apply font-inter;
+    }
+    button:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+    .scrollbar-style::-webkit-scrollbar,
+    .w-tc-editor::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 10px;
+    }
+    .scrollbar-style::-webkit-scrollbar-track,
+    .w-tc-editor::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track {
+        border-radius: 100rem;
+        background: transparent;
+    }
+    .scrollbar-style::-webkit-scrollbar-thumb,
+    .w-tc-editor::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb {
+        border-radius: 100rem;
+        background-image: linear-gradient(245deg, #fcb564, #7c6c10);
+        /* @apply bg-slate-600; */
+    }
+}
+
+@layer utilities {
+    .bg-gradient-primary {
+        background-image: linear-gradient(to right top, #f3880d, #f8bf54);
+    }
+    .bg-gradient-secondary {
+        background-image: linear-gradient(to right top, #e7c83f, #f5a623);
+    }
+    .button-effect {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+    .button-effect:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background-color: white;
+        opacity: 0.1;
+        z-index: -1;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .button-effect:hover:before {
+        left: auto;
+        right: 0;
+        width: 100%;
+    }
+    .hidden-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .hidden-scroll::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.swiper {
+    padding-bottom: 10px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: #f5a623 !important;
+}
+.thumbSwiper .swiper-slide:not(.swiper-slide-thumb-active)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.651);
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+    background-color: transparent;
+    border: 1px solid #f5a623;
+    width: 16px;
+    height: 16px;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #f5a623;
+}
+
+.swiper-pagination {
+    bottom: 0;
+    top: unset !important;
+}
+
+.swiper-pagination-progressbar-fill {
+    background-color: #f5a623 !important;
 }

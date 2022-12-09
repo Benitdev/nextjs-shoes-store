@@ -7,6 +7,7 @@ export type HeaderState = {
     isScroll: boolean
     toggleLogin: boolean
     isLoading: boolean
+    toggleChatBox: boolean
 }
 
 const initialState: HeaderState = {
@@ -14,6 +15,7 @@ const initialState: HeaderState = {
     isScroll: false,
     toggleLogin: false,
     isLoading: false,
+    toggleChatBox: false,
 }
 
 export const headerSlice = createSlice({
@@ -32,6 +34,9 @@ export const headerSlice = createSlice({
         setToggleLogin: (state, action) => {
             state.toggleLogin = action.payload
         },
+        setToggleChatBox: (state, action) => {
+            state.toggleChatBox = action.payload
+        },
         setIsLoading: (state, action) => {
             state.isLoading = action.payload
         },
@@ -42,6 +47,7 @@ export const {
     isScrollUp,
     setHeaderBlur,
     setToggleLogin,
+    setToggleChatBox,
     setIsLoading,
 } = headerSlice.actions
 

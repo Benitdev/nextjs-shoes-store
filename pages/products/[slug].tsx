@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import React from 'react'
 import axios from 'axios'
 
-import DefaultLayout from '../../components/DefaultLayout'
+import DefaultLayout from '../../components/layouts/DefaultLayout'
 import FilterBar from '../../components/FilterBar'
 import ProductImage from '../../components/ProductImage'
 import ProductInfo from '../../components/ProductInfo'
@@ -11,6 +11,7 @@ import ProductReviews from '../../components/ProductReviews'
 import type { Product } from '../../utils/typings'
 import Image from 'next/image'
 import WallHeader from '../../components/WallHeader'
+import productApi from '../../api/productApi'
 
 type Props = {
     product: Product
@@ -27,8 +28,8 @@ const ProductDetail: NextPage<Props> = ({ product }) => {
                 />
                 <ProductInfo product={product} />
             </div>
-            <div className="text-slate-200">
-                <h1 className="mx-auto w-[400px] border-b-2 border-slate-100/40 pb-2 text-center font-sans text-3xl font-bold capitalize">
+            <div className="text-slate-100">
+                <h1 className="mx-auto w-[400px] border-b-2 border-shop-orange/40 py-4 text-center font-vibes text-3xl font-bold capitalize text-shop-orange">
                     {' '}
                     mô tả sản phẩm{' '}
                 </h1>
@@ -65,13 +66,11 @@ const ProductDetail: NextPage<Props> = ({ product }) => {
 }
 export async function getServerSideProps({ query }: any) {
     const { slug } = query
-    const { data: product } = await axios.get(
-        `${process.env.NEXTAUTH_URL}/api/products/${slug}`
-    )
+    const res: any = await productApi.getProductDetail(slug)
 
     return {
         props: {
-            product,
+            product: res.product,
         },
     }
 }

@@ -4,11 +4,16 @@ import React from 'react'
 
 const HomeCollection: React.FC = () => {
     return (
-        <div>
-            <p className="py-10 text-4xl font-bold tracking-widest text-slate-200 underline underline-offset-4">
+        <div className="py-10">
+            <h2 className="text-center font-vibes text-3xl tracking-widest text-shop-orange">
                 {' '}
-                WHO ARE YOU SHOPPING FOR?{' '}
-            </p>
+                Shoes Category
+            </h2>
+            <h1 className="pb-10 pt-5 text-center text-4xl font-bold tracking-widest text-slate-100 underline underline-offset-4">
+                {' '}
+                <span className="text-shop-orange">WH</span>O ARE YOU SHOPPING
+                FOR?{' '}
+            </h1>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <Link href={'men'}>
                     <div className="group relative h-[400px] cursor-pointer xl:h-[500px]">

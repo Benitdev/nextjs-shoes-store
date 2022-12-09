@@ -27,9 +27,9 @@ const AccountInfo = () => {
                     <button
                         key={index}
                         ref={refArray[index]}
-                        className={`relative block px-4 py-2 font-serif text-sm font-bold uppercase  hover:text-sky-400 ${
+                        className={`relative block px-4 py-2 font-serif text-sm font-bold uppercase  hover:text-shop-orange ${
                             activeCate === index
-                                ? 'text-sky-400'
+                                ? 'text-shop-orange '
                                 : 'text-slate-200'
                         }`}
                         onClick={() => setActiveCate(index)}
@@ -39,7 +39,7 @@ const AccountInfo = () => {
                 ))}
                 <span
                     ref={underlineRef}
-                    className={`absolute bottom-0 left-0 h-[6px] w-full rounded-full bg-sky-400 transition-all duration-200`}
+                    className={`absolute bottom-0 left-0 h-[6px] w-full rounded-full bg-shop-orange  transition-all duration-200`}
                 ></span>
             </div>
             {activeCate === 0 && <UserInfoForm />}

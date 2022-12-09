@@ -1,8 +1,12 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion'
+import { SocialIcon } from 'react-social-icons'
+
 import Link from 'next/link'
+
+import { socket } from '../pages/_app'
 
 type Props = {
     isSlideProducts: any
@@ -22,12 +26,42 @@ const variants = {
     },
 }
 const HomeSlider: React.FC<Props> = ({ isSlideProducts }) => {
+    useEffect(() => {
+        socket.on('ahihi', (data) => {
+            console.log(data)
+        })
+    }, [])
+
     const [currentSlide, setCurrentSlide] = useState<number>(1)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     return (
-        <div className="flex h-[calc(100vh-140px)] flex-col justify-between">
+        <div className="flex h-[calc(100vh-156px)] flex-col justify-between ">
             {/* slider  */}
-            <div className="flex gap-4 pt-10">
+            <div className="relative flex flex-1 gap-4 pt-10">
+                <div className="absolute top-0 left-0 bottom-0 flex w-2 flex-col items-center justify-between">
+                    <div className="h-[35%] w-1 rounded-full bg-slate-400"></div>
+                    <div>
+                        <SocialIcon
+                            url="https://www.facebook.com/neihtben"
+                            fgColor="#e0ccbb"
+                            bgColor="transparent"
+                            className="rounded-lg hover:bg-white/40"
+                        />
+                        <SocialIcon
+                            url="https://twitter.com/neihtben"
+                            fgColor="#e0ccbb"
+                            bgColor="transparent"
+                            className="rounded-lg hover:bg-white/40"
+                        />
+                        <SocialIcon
+                            url="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox"
+                            fgColor="#e0ccbb"
+                            bgColor="transparent"
+                            className="rounded-lg hover:bg-white/40"
+                        />
+                    </div>
+                    <div className="h-2/5 w-1 rounded-full bg-slate-400"></div>
+                </div>
                 <AnimatePresence exitBeforeEnter>
                     <motion.div
                         key={currentSlide}
@@ -38,7 +72,7 @@ const HomeSlider: React.FC<Props> = ({ isSlideProducts }) => {
                         transition={{ staggerChildren: 0.1 }}
                     >
                         <motion.h1
-                            className="text-5xl tracking-widest text-pink-600 transition-all"
+                            className="bg-gradient-primary bg-clip-text text-right text-5xl font-bold tracking-widest text-transparent transition-all"
                             variants={variants}
                             transition={{ duration: 0.3, type: 'spring' }}
                         >
@@ -54,60 +88,87 @@ const HomeSlider: React.FC<Props> = ({ isSlideProducts }) => {
                             {isSlideProducts[currentSlide].childrenCategory}
                         </motion.p>
                         <motion.p
-                            className="text-right indent-4 text-xl text-slate-400"
+                            className="text-right indent-4 text-xl text-slate-100"
                             variants={variants}
                             transition={{ duration: 0.3, type: 'spring' }}
                         >
                             {isSlideProducts[currentSlide].description}
                         </motion.p>
                         <motion.button
-                            className="!mt-14 h-14 w-60 rounded-md bg-gradient-to-r from-cyan-500 to-sky-500/80 text-xl font-bold text-slate-800 transition hover:!scale-105 hover:text-slate-300"
+                            className="relative !mt-14 text-xl  text-slate-800"
                             variants={variants}
                             transition={{ duration: 0.3, type: 'spring' }}
                         >
+                            {/* 
+                            <span className="block h-14 w-60 rounded-lg bg-gradient-to-r from-cyan-500 to-sky-500/80"></span>
+                            <span className="absolute top-1/2 left-1/2 h-[60%] w-[120%] -translate-x-1/2 -translate-y-1/2 bg-transparent"></span>
+                            <span className="absolute top-1/2 left-1/2 h-[calc(100%-6px)] w-[calc(100%-6px)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black"></span>
+                            <span className="absolute top-1/2 left-1/2 flex h-[calc(100%-20px)] w-[calc(100%-20px)] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-gradient-to-r from-cyan-500 to-sky-500/80"> */}
                             <Link
-                                href={`products/${isSlideProducts[currentSlide].slug}`}
+                                href={`/products/${isSlideProducts[currentSlide].slug}`}
                             >
-                                <a className="flex h-full w-full items-center justify-center">
+                                <a className="bg-gradient-primary button-effect flex h-14 w-60 items-center justify-center  rounded-lg text-xl font-bold text-gray-900">
                                     Mua Ngay{' '}
                                 </a>
                             </Link>
+                            {/* </span> */}
                         </motion.button>
                     </motion.div>
                 </AnimatePresence>
-                <div className="flex w-[50%] items-center justify-center ">
+                <div className="relative flex w-[50%] items-center justify-center">
                     <AnimatePresence exitBeforeEnter>
                         <motion.div
                             key={currentSlide}
-                            initial={{ x: 300, opacity: 0 }}
+                            initial={{ scale: 0, opacity: 0 }}
                             animate={{
-                                y: [-50, 40, -50],
-                                x: 0,
                                 opacity: 1,
-                                scale: 1.3,
+                                scale: [1, 1.3, 1],
                             }}
-                            exit={{ x: 300, opacity: 0 }}
+                            exit={{ opacity: 0 }}
                             transition={{
-                                y: {
+                                scale: {
                                     repeat: Infinity,
                                     duration: 2,
+                                    // delay: 1,
                                 },
-                                default: { duration: 0.5 },
                             }}
-                        >
-                            <Image
-                                src={`/images/products/${isSlideProducts[currentSlide].images[4]}`}
-                                width={500}
-                                height={500}
-                                className="-rotate-[30deg] bg-transparent"
-                            />
-                        </motion.div>
+                            className="absolute h-[300px] w-[300px] rounded-full bg-yellow-400/50 blur-[80px] lg:h-[400px] lg:w-[400px]"
+                        ></motion.div>
                     </AnimatePresence>
+                    <div className="absolute inset-0 flex justify-center overflow-hidden">
+                        <AnimatePresence exitBeforeEnter>
+                            <motion.div
+                                key={currentSlide}
+                                initial={{ x: 300, opacity: 0 }}
+                                animate={{
+                                    y: [-50, 40, -50],
+                                    x: 0,
+                                    opacity: 1,
+                                    scale: 1.3,
+                                }}
+                                exit={{ x: 300, opacity: 0 }}
+                                transition={{
+                                    y: {
+                                        repeat: Infinity,
+                                        duration: 2,
+                                    },
+                                    default: { duration: 0.5 },
+                                }}
+                            >
+                                <Image
+                                    src={`/images/products/${isSlideProducts[currentSlide].images[4]}`}
+                                    width={500}
+                                    height={500}
+                                    className="-rotate-[30deg] bg-transparent"
+                                />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
             {/* slider control  */}
-            <div className="pb-4">
-                <div className="mx-auto mt-12 flex w-fit items-center justify-center gap-6 rounded-t-3xl bg-slate-400/10 px-6 py-2 shadow-md shadow-red-400/50">
+            <div className="">
+                <div className="mx-auto mt-12 flex w-fit items-center justify-center gap-6 rounded-t-3xl bg-slate-400/10 px-6 py-4 shadow-md shadow-shop-orange/50">
                     {isSlideProducts.map((product: any, index: any) => (
                         <motion.div
                             key={index}
@@ -139,7 +200,7 @@ const HomeSlider: React.FC<Props> = ({ isSlideProducts }) => {
                                 />
                             </div>
                             <span
-                                className={`absolute bottom-0 left-0 h-1 rounded-xl bg-red-400 transition-all duration-300 group-hover:w-full ${
+                                className={`absolute bottom-0 left-0 h-1 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full ${
                                     currentSlide === index ? 'w-full' : 'w-0'
                                 }`}
                             ></span>

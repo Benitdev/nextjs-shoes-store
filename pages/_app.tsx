@@ -1,18 +1,16 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
-
 import { Provider } from 'react-redux'
-import { store } from '../redux/store'
+import { io } from 'socket.io-client'
 
 import { css } from '@emotion/react'
 import PropagateLoader from 'react-spinners/PropagateLoader'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-`
+import { store } from '../redux/store'
+import '../styles/globals.css'
+
+export const socket = io('http://localhost:5000')
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (

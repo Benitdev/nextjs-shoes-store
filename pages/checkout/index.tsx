@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import Product from '../../models/Product'
 
-import DefaultLayout from '../../components/DefaultLayout'
+import DefaultLayout from '../../components/layouts/DefaultLayout'
 import { getSession, useSession } from 'next-auth/react'
 import WallHeader from '../../components/WallHeader'
 import CheckoutStage from '../../components/CheckoutStage'

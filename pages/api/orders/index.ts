@@ -4,7 +4,6 @@ import nc from 'next-connect'
 import Order from '../../../models/Orders'
 
 import db from '../../../utils/db'
-import mongoose from 'mongoose'
 
 const handler = nc()
 const secret = process.env.NEXTAUTH_SECRET
@@ -39,7 +38,7 @@ handler.put(async (req: NextApiRequest, res: NextApiResponse) => {
     const order = await Order.findById(req.body.id)
     console.log(order)
     if (order) {
-        order.orderState = 4
+        order.orderState = req.body.orderState
         await order.save()
         await db.disconnect()
         res.send({ message: 'order Updated Successfully' })

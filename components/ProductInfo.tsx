@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { useAppDispatch } from '../redux/hooks'
 import { cartAddItem } from '../redux/cartSlice'
 import { Product } from '../utils/typings'
+import cartApi from '../api/cartApi'
 
 type Props = {
     product: Product
@@ -32,9 +33,24 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
         formState: { errors },
     } = useForm()
     const [quantity, setQuantity] = useState<number>(1)
-    const size = watch('size')
+    const [size, setSize] = useState<number | undefined>(undefined)
     const countInStock = product.countInStock.find((item) => item.size == size)
-    const handleCartAddItem = ({ size }: any) => {
+
+    const checkQuantity = async () => {
+        try {
+            if (size && quantity) {
+                const res: any = await cartApi.checkQuantity({
+                    _id: product._id,
+                    size,
+                    quantity,
+                })
+            }
+        } catch (err) {
+            toast.error('Số lượng không hợp lệ!')
+        }
+    }
+
+    const handleCartAddItem = () => {
         const {
             _id,
             name,
@@ -69,16 +85,16 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
     return (
         <div className="flex-1">
             <form
-                className="mx-auto space-y-4 text-slate-200 xl:w-4/5"
+                className="mx-auto space-y-4 text-shop-orange xl:w-4/5"
                 onSubmit={handleSubmit(handleCartAddItem)}
             >
                 <div>
-                    <h1 className="pb-1 text-3xl font-bold">
+                    <h1 className="w-fit bg-gradient-to-tr from-shop-orange via-orange-300 to-orange-600 bg-clip-text pb-1 text-3xl font-bold text-transparent">
                         {' '}
                         {product.name}{' '}
                     </h1>
                     <div className="flex items-center gap-2">
-                        <span className="font-sans text-xl font-bold text-pink-600 underline underline-offset-1">
+                        <span className="font-sans text-xl font-bold text-shop-orange underline underline-offset-1">
                             {numStar}
                         </span>
                         <div className="flex items-center">
@@ -146,9 +162,6 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
                         {product.countInStock.map(({ size, count }, index) => (
                             <div key={index} className="relative">
                                 <input
-                                    {...register('size', {
-                                        required: true,
-                                    })}
                                     type="radio"
                                     className={`peer h-10 w-10 appearance-none ${
                                         count !== 0
@@ -158,11 +171,16 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
                                     value={size}
                                     required
                                     disabled={count === 0}
+                                    name="size"
+                                    onChange={(e) => {
+                                        setSize(+e.target.value)
+                                        checkQuantity()
+                                    }}
                                 />
                                 <div
-                                    className={`pointer-events-none absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-xl border-[1px] border-slate-400 transition-all duration-150  ${
+                                    className={`pointer-events-none absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-xl border border-shop-orange/50 transition-all duration-150  ${
                                         count !== 0
-                                            ? 'peer-checked:bg-slate-100 peer-checked:text-slate-900 peer-hover:bg-slate-300 peer-hover:text-slate-900'
+                                            ? 'peer-checked:bg-shop-orange peer-checked:text-slate-900 peer-hover:bg-shop-orange peer-hover:text-slate-900'
                                             : 'opacity-40'
                                     }`}
                                 >
@@ -177,37 +195,40 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
                     <input
                         value={quantity}
                         type="number"
-                        className="w-16 rounded-lg border-[1px] border-slate-200 bg-transparent px-2 text-slate-200 outline-none"
+                        className="w-16 rounded-lg border-[1px] border-shop-orange/50 bg-transparent px-2 text-shop-orange outline-none"
                         onChange={(e) => {
                             if (
                                 e.target.value > '0' &&
                                 e.target.value &&
-                                !e.target.value.startsWith('0') &&
-                                +e.target.value <= countInStock!.count
+                                !e.target.value.startsWith('0')
                             ) {
                                 setQuantity(+e.target.value)
-                            } else setQuantity(1)
-                            if (+e.target.value > countInStock!.count)
-                                toast.error('Số lượng trong kho không đủ!!!')
+                                checkQuantity()
+                            }
                         }}
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="mx-auto flex items-center space-x-3 rounded-full bg-sky-500/70 px-6 py-4 text-xl font-bold capitalize leading-none shadow-md shadow-sky-400 hover:text-slate-900"
-                >
-                    {' '}
-                    <span>thêm vào giỏ hàng</span>
-                    <FontAwesomeIcon icon={faCartPlus} className="h-6 w-6" />
-                </button>
-                <button
-                    type="submit"
-                    className="mx-auto flex w-[274px] items-center justify-center space-x-3 rounded-full  bg-pink-500/70 py-4 text-xl font-bold capitalize leading-none shadow-md shadow-pink-400 hover:text-slate-900"
-                >
-                    {' '}
-                    <span>yêu thích</span>
-                    <FontAwesomeIcon icon={faHeart} className="h-6 w-6" />
-                </button>
+                <div className="space-y-6 py-4">
+                    <button
+                        type="submit"
+                        className="button-effect mx-auto flex items-center space-x-3 rounded-full bg-shop-orange px-6 py-4 text-xl font-bold capitalize leading-none text-slate-900 shadow-md shadow-shop-orange"
+                    >
+                        {' '}
+                        <span>thêm vào giỏ hàng</span>
+                        <FontAwesomeIcon
+                            icon={faCartPlus}
+                            className="h-6 w-6"
+                        />
+                    </button>
+                    <button
+                        type="submit"
+                        className="button-effect mx-auto flex w-[274px] items-center justify-center space-x-3 rounded-full  bg-pink-500/70 py-4 text-xl font-bold capitalize leading-none text-slate-900 shadow-md shadow-pink-400"
+                    >
+                        {' '}
+                        <span>yêu thích</span>
+                        <FontAwesomeIcon icon={faHeart} className="h-6 w-6" />
+                    </button>
+                </div>
             </form>
         </div>
     )

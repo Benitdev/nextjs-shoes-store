@@ -78,32 +78,41 @@ const HomeHeader: React.FC = () => {
 
     return (
         <header
-            className={`sticky top-0 z-40 w-full transition-colors duration-500 ${
+            className={`sticky top-0 z-[9999] w-full pt-4 transition-colors duration-500 ${
                 headerBlur ? 'bg-black/90 backdrop-blur' : ''
             }`}
         >
-            <motion.div className="container mx-auto flex h-[5rem] items-center justify-between border-b border-slate-50/10">
+            <motion.div className="container mx-auto flex h-[5rem] items-center justify-between border-b border-slate-50/10 px-4">
                 <motion.div
                     initial={{ x: -50 }}
                     animate={{ x: 0 }}
                     transition={{ type: 'spring' }}
-                    className="h-full w-[500px] text-2xl font-bold text-purple-300"
+                    className="flex h-full w-[500px] items-center"
                     variants={{ like: { x: 200 } }}
                 >
-                    <Link href={'/'}>
-                        <a className="relative block h-[80px] w-[250px]">
+                    {/* <Link href={'/'}>
+                        <a className="relative -ml-6 block h-[80px] w-[250px]">
                             <Image
                                 src={'/images/logo/logo.png'}
                                 layout="fill"
                                 objectFit="cover"
                             />
                         </a>
+                    </Link> */}
+                    <Link
+                        href={'/'}
+                        // className="mx-auto block w-fit font-rubik text-3xl tracking-widest"
+                    >
+                        <a className="block w-fit font-rubik text-3xl tracking-widest">
+                            <span className="text-shop-orange">Benit</span>
+                            <span className="text-white">store</span>
+                        </a>
                     </Link>
                 </motion.div>
                 <SearchBox />
                 {/* the right side of the header  */}
-                <div className="flex w-[500px] items-center justify-end space-x-4 text-slate-200">
-                    <div className="mr-8 flex items-center gap-4 text-sm text-slate-300">
+                <div className="flex w-[500px] items-center justify-end space-x-4 text-shop-orange">
+                    <div className="mr-8 flex items-center gap-4 text-sm text-shop-orange">
                         <FontAwesomeIcon icon={faPhone} className="h-6 w-6" />
                         <div>
                             <span> Hotline</span>
@@ -127,22 +136,22 @@ const HomeHeader: React.FC = () => {
                             offset={[0, 5]}
                             render={(attrs) => (
                                 <div
-                                    className="rounded-xl bg-slate-500/70 py-2 px-4 text-center text-sm"
+                                    className="rounded-xl bg-black/60 py-2 px-4 text-center text-sm"
                                     tabIndex={-1}
                                     {...attrs}
                                 >
                                     <Link href={'/user'}>
-                                        <a className="block cursor-pointer py-1 hover:text-sky-400">
+                                        <a className="block cursor-pointer py-1 hover:text-shop-orange">
                                             {' '}
                                             Thông tin tài khoản{' '}
                                         </a>
                                     </Link>
-                                    <div className="cursor-pointer py-1 hover:text-sky-400">
+                                    <div className="cursor-pointer py-1 hover:text-shop-orange">
                                         Đơn hàng
                                     </div>
                                     <div
                                         onClick={() => signOut()}
-                                        className="mt-2 cursor-pointer border-t-[1px] border-slate-400 py-2 hover:text-sky-400"
+                                        className="mt-2 cursor-pointer border-t-[1px] border-slate-400 py-2 hover:text-shop-orange"
                                     >
                                         {' '}
                                         Đăng xuất{' '}
@@ -152,8 +161,10 @@ const HomeHeader: React.FC = () => {
                             onClickOutside={() => setVisibleUserInfo(false)}
                         >
                             <button
-                                className={`flex items-center gap-2 rounded-2xl bg-slate-500/50 p-1 pr-3 ${
-                                    visibleUserInfo ? 'ring-2 ring-sky-500' : ''
+                                className={`flex items-center gap-2 rounded-2xl bg-black/50 p-1 pr-3 ${
+                                    visibleUserInfo
+                                        ? 'ring-2 ring-shop-orange/70'
+                                        : ''
                                 }`}
                                 onClick={() =>
                                     setVisibleUserInfo(!visibleUserInfo)
@@ -277,7 +288,7 @@ const HomeHeader: React.FC = () => {
                                         icon={faBagShopping}
                                         className="h-6 w-6"
                                     ></FontAwesomeIcon>
-                                    <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-pink-600 text-sm">
+                                    <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-shop-orange/90 text-sm text-black">
                                         {' '}
                                         {cartCount}
                                     </span>
@@ -348,36 +359,43 @@ const HomeHeader: React.FC = () => {
                 animate={isScroll ? 'hidden' : 'visible'}
             >
                 <motion.ul
-                    className="mx-auto flex w-fit gap-4 text-xl text-slate-200"
+                    className="mx-auto flex w-fit gap-4 text-slate-200"
                     initial={{ y: -30 }}
                     animate={{ y: 0 }}
                 >
-                    <Link href={'/men'}>
-                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-sky-400">
+                    <Link href={'/products'}>
+                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-shop-orange">
                             {' '}
-                            Men{' '}
-                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+                            Cửa hàng{' '}
+                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </Link>
+                    <Link href={'/men'}>
+                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-shop-orange">
+                            {' '}
+                            Nam{' '}
+                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </Link>
                     <Link href={'/women'}>
-                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-sky-400">
+                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-shop-orange">
                             {' '}
-                            Women{' '}
-                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+                            Nữ{' '}
+                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </Link>
                     <Link href={'/kid'}>
-                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-sky-400">
+                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-shop-orange">
                             {' '}
-                            Kid{' '}
-                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+                            Trẻ em{' '}
+                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </Link>
                     <Link href={'/sales'}>
-                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-sky-400">
+                        <a className="group relative cursor-pointer p-4 font-bold tracking-wider hover:text-shop-orange">
                             {' '}
-                            Sales{' '}
-                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+                            Giảm giá{' '}
+                            <span className="absolute bottom-0 left-0 h-[5px] w-0 rounded-xl bg-shop-orange transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </Link>
                 </motion.ul>

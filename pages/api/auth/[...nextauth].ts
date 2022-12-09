@@ -70,6 +70,13 @@ export default NextAuth({
             if (user) user.isAdmin = false
             return true
         },
+        async redirect({ url, baseUrl }) {
+            // Allows relative callback URLs
+            if (url.startsWith('/')) return `${baseUrl}`
+            // Allows callback URLs on the same origin
+            else if (new URL(url).origin === baseUrl) return url
+            return baseUrl
+        },
         async jwt({ token, account, user }) {
             if (account || user) {
                 token.accessToken = account?.access_token
@@ -89,6 +96,10 @@ export default NextAuth({
                 },
             }
         },
+    },
+    pages: {
+        signIn: '/',
+        error: '/404',
     },
     secret: process.env.NEXTAUTH_SECRET,
     adapter: MongoDBAdapter(clientPromise),

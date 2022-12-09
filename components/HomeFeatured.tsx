@@ -12,14 +12,20 @@ import 'swiper/css/navigation'
 
 type Props = {
     featuredProducts: any
-    title?: string
+    title: string
 }
 const HomeFeatured: NextPage<Props> = ({ featuredProducts, title }) => {
     return (
         <div className="">
-            <p className="py-10 text-4xl font-bold tracking-widest text-slate-200 underline underline-offset-4">
-                {title ? title : 'Best of Nike'}
-            </p>
+            <h2 className="text-center font-vibes text-3xl tracking-widest text-shop-orange">
+                {' '}
+                Choose & Pick
+            </h2>
+            <h1 className="mb-4 border-b border-shop-orange pb-10 pt-5 text-center text-4xl font-bold tracking-widest text-slate-100">
+                {' '}
+                <span className="text-shop-orange">{`${title[0]}${title[1]}`}</span>
+                {title.slice(2)}{' '}
+            </h1>
             <Swiper
                 spaceBetween={20}
                 slidesPerView={4}
@@ -27,6 +33,7 @@ const HomeFeatured: NextPage<Props> = ({ featuredProducts, title }) => {
                 loop
                 pagination={{
                     clickable: true,
+                    type: 'progressbar',
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}

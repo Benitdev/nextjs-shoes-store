@@ -1,13 +1,14 @@
 import type { NextPage } from 'next'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
-import DefaultLayout from '../components/DefaultLayout'
+import DefaultLayout from '../components/layouts/DefaultLayout'
 import FilterBar from '../components/FilterBar'
 import WallHeader from '../components/WallHeader'
 import ProductList from '../components/ProductList'
 import type { Product } from '../utils/typings'
+import productApi from '../api/productApi'
 
 type Props = {
     products: Product[]
@@ -15,6 +16,7 @@ type Props = {
 }
 
 const Products: NextPage<Props> = ({ products, category }) => {
+    const [hideFilter, setHideFilter] = useState<boolean>(false)
     let title
     switch (category) {
         case 'men':
@@ -35,9 +37,13 @@ const Products: NextPage<Props> = ({ products, category }) => {
     return (
         <DefaultLayout title={title}>
             <div>
-                <WallHeader category={title} productPage />
+                <WallHeader
+                    category={title}
+                    productPage
+                    setHideFilter={setHideFilter}
+                />
                 <div className="grid grid-cols-11 gap-10">
-                    <FilterBar category={category} />
+                    <FilterBar category={category} hideFilter={hideFilter} />
                     <ProductList products={products} />
                 </div>
             </div>
@@ -46,18 +52,11 @@ const Products: NextPage<Props> = ({ products, category }) => {
 }
 
 export async function getServerSideProps({ query }: any) {
-    const { data } = await axios.get(
-        `${process.env.NEXTAUTH_URL}/api/products`,
-        {
-            params: {
-                ...query,
-            },
-        }
-    )
-
+    console.log(query)
+    const res: any = await productApi.getProductsFilter({ params: query })
     return {
         props: {
-            products: data,
+            products: res.products,
             category: query.category,
         },
     }

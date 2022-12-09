@@ -123,7 +123,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                                     >
                                         <span className="flex h-7 w-7 items-center justify-center rounded-full border-4 border-black bg-slate-400">
                                             <span
-                                                className={`block h-3/4 w-3/4 rounded-full bg-pink-600 ${
+                                                className={`block h-3/4 w-3/4 rounded-full bg-shop-orange ${
                                                     index === paymentMethod
                                                         ? 'scale-100'
                                                         : 'scale-0'
@@ -133,7 +133,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                                         <p
                                             className={`text-sm font-bold capitalize tracking-wider ${
                                                 index === paymentMethod
-                                                    ? 'text-pink-500'
+                                                    ? 'text-shop-orange'
                                                     : 'text-slate-200'
                                             }`}
                                         >
@@ -171,7 +171,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                             trong của chúng tôi.
                         </p>
                         <button
-                            className="rounded-xl bg-pink-600 px-14 py-4 font-bold text-slate-800"
+                            className="button-effect rounded-xl bg-shop-orange px-14 py-4 font-bold text-slate-800"
                             onClick={handleSubmitPayment}
                         >
                             {' '}
@@ -184,7 +184,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                         <h3 className="flex justify-between border-b-[1px] pb-2 text-sm font-bold capitalize tracking-wider text-slate-200">
                             giao hàng đến địa chỉ
                             <button
-                                className="rounded-md bg-pink-600 px-2 text-slate-300 hover:text-slate-900"
+                                className="button-effect rounded-md bg-shop-orange px-2 text-slate-900"
                                 onClick={() => setCheckoutStage(1)}
                             >
                                 {' '}
@@ -225,7 +225,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                         <h3 className="flex justify-between border-b-[1px] pb-2 text-sm font-bold capitalize tracking-wider text-slate-200">
                             giỏ hàng
                             <Link href="/cart">
-                                <button className="rounded-md bg-pink-600 px-2 text-slate-300  hover:text-slate-900">
+                                <button className="button-effect rounded-md bg-shop-orange px-2  text-slate-900">
                                     {' '}
                                     Sửa{' '}
                                 </button>
@@ -245,11 +245,11 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                                             </span>{' '}
                                             -{' '}
                                         </span>
-                                        <span className="font-sans font-bold text-sky-400">
+                                        <span className="font-sans font-bold text-shop-orange">
                                             {item.name}
                                         </span>
                                     </h3>
-                                    <p className="font-bold text-pink-400">
+                                    <p className="font-bold text-shop-orange/80">
                                         {(
                                             item.quantity * item.price
                                         ).toLocaleString('vi-VN', {
@@ -292,7 +292,7 @@ const CheckoutPayment = ({ session, addressInfo, setCheckoutStage }: any) => {
                             </div>
                             <div className="flex justify-between border-t-[1px] border-slate-500 py-2 px-2 text-slate-200">
                                 <span> Tổng cộng: </span>
-                                <span className="font-bold text-red-500">
+                                <span className="font-bold text-shop-orange">
                                     {Number(total + 69696).toLocaleString(
                                         'vi-VN',
                                         {

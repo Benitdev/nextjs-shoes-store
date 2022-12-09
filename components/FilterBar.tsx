@@ -20,13 +20,18 @@ const sizes = [
     25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
     44, 45,
 ]
-const FilterBar = ({ category: cate }: any) => {
+const FilterBar = ({ category: cate, hideFilter }: any) => {
     const router = useRouter()
+
     const { query } = router
     const [genderPopup, setGenderPopup] = useState<boolean>(true)
     const [sizePopup, setSizePopup] = useState<boolean>(true)
     return (
-        <div className="scroll scrollbar-track-rounded sticky top-[188px] col-span-2 h-[calc(100vh-188px)] overflow-y-auto overflow-x-hidden pb-8 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
+        <div
+            className={`scrollbar-style sticky top-[188px] h-[calc(100vh-188px)] overflow-y-auto overflow-x-hidden pb-8 ${
+                hideFilter ? 'col-span-1' : ' col-span-2 '
+            }`}
+        >
             <div className="space-y-4 border-l-[1px] border-slate-50/10 px-4 text-slate-300">
                 <ul className="border-b-[1px] border-slate-50/10">
                     {categories.map((category, index) => (
@@ -45,9 +50,9 @@ const FilterBar = ({ category: cate }: any) => {
                             key={index}
                         >
                             <motion.li
-                                className={`cursor-pointer rounded-full py-4 capitalize hover:text-sky-400 ${
+                                className={`cursor-pointer rounded-full py-4 capitalize hover:text-shop-orange ${
                                     query.cate === category
-                                        ? '!translate-x-[10px] text-sky-400'
+                                        ? '!translate-x-[10px] text-shop-orange'
                                         : ''
                                 }`}
                                 whileHover={{ x: 10 }}
@@ -60,11 +65,11 @@ const FilterBar = ({ category: cate }: any) => {
                 {/* gender filter  */}
                 <div>
                     <p
-                        className="flex cursor-pointer justify-between px-2 hover:text-sky-400"
+                        className="flex cursor-pointer justify-between px-2 hover:text-shop-orange"
                         onClick={() => setGenderPopup(!genderPopup)}
                     >
                         {' '}
-                        Gender
+                        Giới tính
                         <FontAwesomeIcon
                             icon={faChevronDown}
                             className={`h-4 w-4 ${
@@ -112,7 +117,7 @@ const FilterBar = ({ category: cate }: any) => {
                                 />
                                 <FontAwesomeIcon
                                     icon={faCheck}
-                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-sky-600 transition peer-checked:scale-90"
+                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-shop-orange transition peer-checked:scale-90"
                                 />
                             </div>
                             <label
@@ -157,7 +162,7 @@ const FilterBar = ({ category: cate }: any) => {
                                 />
                                 <FontAwesomeIcon
                                     icon={faCheck}
-                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-sky-600 transition peer-checked:scale-90"
+                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-shop-orange transition peer-checked:scale-90"
                                 />
                             </div>
                             <label
@@ -202,7 +207,7 @@ const FilterBar = ({ category: cate }: any) => {
                                 />
                                 <FontAwesomeIcon
                                     icon={faCheck}
-                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-sky-600 transition peer-checked:scale-90"
+                                    className="absolute -top-[7px] -left-[5px] h-7 w-7 scale-0 text-shop-orange transition peer-checked:scale-90"
                                 />
                             </div>
                             <label
@@ -217,7 +222,7 @@ const FilterBar = ({ category: cate }: any) => {
                 {/* size filer  */}
                 <div>
                     <p
-                        className="flex cursor-pointer justify-between px-2 hover:text-sky-400"
+                        className="flex cursor-pointer justify-between px-2 hover:text-shop-orange"
                         onClick={() => setSizePopup(!sizePopup)}
                     >
                         {' '}
@@ -237,9 +242,9 @@ const FilterBar = ({ category: cate }: any) => {
                         <div className="grid grid-cols-3 gap-2">
                             {sizes.map((size: number) => (
                                 <button
-                                    className={`rounded-lg border-[1px] border-slate-400 hover:bg-sky-500/70 hover:text-slate-200 ${
+                                    className={`rounded-lg border-[1px] border-slate-400 hover:bg-shop-orange/80 hover:text-slate-200 ${
                                         query.size?.includes(size + '')
-                                            ? 'bg-sky-600/80 text-slate-200'
+                                            ? 'bg-shop-orange/80 text-slate-200'
                                             : ''
                                     }`}
                                     key={size}
